@@ -13,8 +13,10 @@ let session = watsonSession(assistant, assistId)
 bot.on('message', async (msg) => {
   return new Promise(async (resolve, reject) => {
     let mensagem = await message(assistant, msg.text, await session, assistId)
+    let teste = mensagem.output.generic[0].text
+    console.log(JSON.parse(mensagem))
     if (mensagem) {
-      resolve(bot.sendMessage(msg.chat.id, JSON.stringify(mensagem.output.generic[0].text)))
+      resolve(bot.sendMessage(msg.chat.id, teste))
     } else {
       reject({ message: 'Falha' })
     }
