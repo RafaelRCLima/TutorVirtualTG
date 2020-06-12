@@ -25,6 +25,12 @@ let logController = {
         }
       }
     }
+  },
+
+  async listStudentLogs() {
+    const logs = await Log.findAll()
+
+    return logs
   }
 }
 
