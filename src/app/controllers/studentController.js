@@ -18,6 +18,11 @@ let studentController = {
         console.log(error)
       }
     }
+  },
+
+  async listStudent(req, res) {
+    const students = await Student.findAll()
+    res.json(students)
   }
 }
 

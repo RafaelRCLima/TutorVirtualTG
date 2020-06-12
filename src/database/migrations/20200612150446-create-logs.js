@@ -12,7 +12,7 @@ module.exports = {
         references: { model: 'students', key: 'id_telegram' },
         onUpdate: 'CASCADE',
         onDelete: 'SET NULL',
-        allowNull: true
+        allowNull: false
       },
       subject: {
         type: Sequelize.STRING,
