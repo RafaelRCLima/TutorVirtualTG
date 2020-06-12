@@ -1,6 +1,5 @@
 const AssistantV2 = require('ibm-watson/assistant/v2')
 const { IamAuthenticator } = require('ibm-watson/auth')
-const assistId = 'adc3f697-2399-4eed-bd60-a0cecaabebb0'
 
 const assistant = new AssistantV2({
   version: '2020-06-08',

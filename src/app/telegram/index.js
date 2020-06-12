@@ -1,20 +1,33 @@
-const TelegramBot = require('node-telegram-bot-api')
+const bot = require('./config')
 const message = require('../watson/message')
 const watsonSession = require('../watson/session')
+const studentController = require('../controllers/studentController')
+const answerController = require('../controllers/answerController')
+const logController = require('../controllers/logController')
 
 const assistant = require('../../config/watson')
 const assistId = 'adc3f697-2399-4eed-bd60-a0cecaabebb0'
 
-const token = '1135224560:AAGQDooHgtpluYXi92_f1j0k4UTMDRSDbIY'
-const bot = new TelegramBot(token, { polling: true })
-
 let session = watsonSession(assistant, assistId)
 
 bot.on('message', async (msg) => {
+
+  if (msg.text === '/start') {
+    session = await watsonSession(assistant, assistId)
+    return
+  }
+
+  studentController.createStudent(msg.from.id, msg.from.first_name)
+
   return new Promise(async (resolve, reject) => {
     let mensagem = await message(assistant, msg.text, await session, assistId)
+
+    logController.saveLog(mensagem.output.entities, msg.from.id)
+
+    let teste = await answerController.analizeAsk(mensagem.output.generic[0].text, msg.from.first_name)
+
     if (mensagem) {
-      resolve(bot.sendMessage(msg.chat.id, JSON.stringify(mensagem.output.generic[0].text)))
+      resolve(bot.sendMessage(msg.chat.id, teste))
     } else {
       reject({ message: 'Falha' })
     }
