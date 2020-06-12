@@ -23,6 +23,16 @@ let studentController = {
   async listStudent(req, res) {
     const students = await Student.findAll()
     res.json(students)
+  },
+
+  async findStudent(req, res) {
+    let student = await Student.findOne({
+      where: {
+        idTelegram: req.params.id
+      }
+    })
+
+    res.json(student)
   }
 }
 
