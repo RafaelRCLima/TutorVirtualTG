@@ -24,7 +24,7 @@ bot.on('message', async (msg) => {
 
     logController.saveLog(mensagem.output.entities, msg.from.id)
 
-    let answers = await answerController.analizeAsk(mensagem.output.generic[0].text, msg.from.first_name, msg.from.id)
+    let answers = await answerController.analizeAsk(mensagem.output.generic[0].text, msg.from)
 
     if (answers) {
       for (let i = 0; i < answers.length; i++) {

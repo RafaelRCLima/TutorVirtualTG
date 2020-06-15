@@ -1,9 +1,10 @@
 const Log = require('../models/Log')
+const Mail = require('../../lib/Mail')
 
 let answerService = {
-  async answerAboutIf(name) {
+  async answerAboutIf(studentName) {
     let answers = [
-      `Opa ${name} o if é uma estrutura de controle bem tranquila, vou te dar um exemplo.`,
+      `Opa ${studentName} o if é uma estrutura de controle bem tranquila, vou te dar um exemplo.`,
       `Imagine o seguinte:
 Você precisa dividir um valor por 2, mas somente se for maior que 3
 Pra que essa condição seja satisfeita, usando um exemplo em python seria assim:
@@ -15,9 +16,9 @@ Pra que essa condição seja satisfeita, usando um exemplo em python seria assim
     return answers
   },
 
-  async answerAboutWhile(name) {
+  async answerAboutWhile(studentName) {
     const answers = [
-      `Bom ${name} o while é tranquilo, ele funciona enquanto uma regra que você colocar for verdadeira ou falsa, dependendo somente da sua lógica`,
+      `Bom ${studentName} o while é tranquilo, ele funciona enquanto uma regra que você colocar for verdadeira ou falsa, dependendo somente da sua lógica`,
       'Vou te dar um exemplo',
       'Imagine que vc precisa que uma pergunta seja feita até que o usuário digite o valor correto',
       'Melhor ainda, pensa que vc quer que o usuário digite 2',
@@ -30,7 +31,7 @@ Pra que essa condição seja satisfeita, usando um exemplo em python seria assim
     return answers
   },
 
-  async answerAboutFor(name) {
+  async answerAboutFor(studentName) {
     const answers = [
       `Ouvi uma vez que o for é um while enrustido kkk. E na verdade é mesmo, porque nele você mantém a sua lógica funcionando de acordo com a condição indicada no início`,
       'A estrutura do for é diferente em algumas linguagens. Uma das mais tranquilas de entender é a do python',
@@ -44,7 +45,7 @@ filmes = [ Vingadores, Gravidade, Sonic ]`,
     return answers
   },
 
-  async answerAboutRelational(name) {
+  async answerAboutRelational(studentName) {
     const answers = [
       'Aah sim, beleza, vamo lá',
       'Operadores relacionais são caracteres que utilizamos para fazer comparações',
@@ -55,7 +56,7 @@ filmes = [ Vingadores, Gravidade, Sonic ]`,
     return answers
   },
 
-  async answerAboutLogical(name) {
+  async answerAboutLogical(studentName) {
     const answers = [
       'Posso dizer que... bem, esse é um pouco mais difícil de explicar eu acho, mas é utilizado quando precisamos testar duas ou mais condições no nosso código.',
       'Se vc já mexeu com Excel alguma vez, talvez já tenha visto isso',
@@ -70,7 +71,7 @@ filmes = [ Vingadores, Gravidade, Sonic ]`,
     return answers
   },
 
-  async answerAboutArithmetics(name) {
+  async answerAboutArithmetics(studentName) {
     const answers = [
       'Esse é o mais tranquilo de explicar. Com operadores aritméticos vc faz suas operações matemáticas, são bem simples e práticos.',
       "Usamos o '/' para divisão, '*' para multiplicação,  '-' para subtração e '+' para soma",
@@ -80,14 +81,22 @@ filmes = [ Vingadores, Gravidade, Sonic ]`,
     return answers
   },
 
-  async sendAnEmailToTeacher(name) {
+  async sendAnEmailToTeacher(studentName, studentId) {
+    await Mail.sendMail({
+      to: 'Rafael <rafaelrcorreialima@gmail.com>',
+      subject: 'Aluno com dúvidas',
+      text: `Olá Professor, \nO aluno ${studentName} detentor do id ${studentId} está com dificuldades no estudo de algoritmos
+Assim que possível entre em contato para ajudá-lo
+\nMuito Obrigado
+\nJoaquim - Tutor Virtual de Algoritmos`
+    })
     const answers = [
-      'Pode deixar, vou entrar em contato com um professor pra te ajudar agora mesmo'
+      'Acabei de enviar um email para o professor, assim que possível ele entrará em contato.'
     ]
     return answers
   },
 
-  async sendVideo(name, idTelegram) {
+  async sendVideo(studentName, idTelegram) {
     const studentLogs = await Log.findAll({
       where: {
         idTelegram: idTelegram
