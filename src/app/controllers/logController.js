@@ -2,7 +2,8 @@ const Log = require('../models/Log')
 
 let logController = {
   saveLog(entitiesList, idTelegram) {
-    if (entitiesList[0]) {
+    if (entitiesList[0] && entitiesList[0].value != 'Negativo' && entitiesList[0].value != 'Positivo'
+      && entitiesList[0].value != 'video' && entitiesList[0].value != 'professor') {
       if (entitiesList[0].value !== 'Operador') {
         try {
           Log.create({
@@ -25,6 +26,11 @@ let logController = {
         }
       }
     }
+  },
+
+  async listStudentLogs() {
+    const logs = await Log.findAll()
+    return logs
   }
 }
 

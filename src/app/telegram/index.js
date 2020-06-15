@@ -24,10 +24,12 @@ bot.on('message', async (msg) => {
 
     logController.saveLog(mensagem.output.entities, msg.from.id)
 
-    let teste = await answerController.analizeAsk(mensagem.output.generic[0].text, msg.from.first_name)
+    let answers = await answerController.analizeAsk(mensagem.output.generic[0].text, msg.from)
 
-    if (mensagem) {
-      resolve(bot.sendMessage(msg.chat.id, teste))
+    if (answers) {
+      for (let i = 0; i < answers.length; i++) {
+        resolve(await bot.sendMessage(msg.chat.id, answers[i]))
+      }
     } else {
       reject({ message: 'Falha' })
     }

@@ -1,25 +1,25 @@
+const answerService = require('../services/answerService')
+
 let answerController = {
-  async analizeAsk(watsonMessage, name) {
-    let answer = watsonMessage
+  async analizeAsk(watsonMessage, telegramStudentInfo) {
+    let answer = [watsonMessage]
     switch (watsonMessage) {
       case 'if':
-        answer = `Opa ${name} o if é uma estrutura de controle bem tranquila, vou te dar alguns exemplos.`
-        return answer
+        return answerService.answerAboutIf(telegramStudentInfo.first_name)
       case 'while':
-        answer = `Bom ${name} o while é tranquilo, ele funciona enquanto uma regra que você colocar for verdadeira ou falsa, dependendo somente da sua lógica`
-        return answer
+        return answerService.answerAboutWhile(telegramStudentInfo.first_name)
       case 'for':
-        answer = `Ouvi uma vez que o for é um while enrustido kkk. E na verdade é mesmo, porque nele você mantém a sua lógica funcionando de acordo com a condição indicada no início`
-        return answer
+        return answerService.answerAboutFor(telegramStudentInfo.first_name)
       case 'relacional':
-        answer = `Bom, um operador relacional é um caracter utilizado pra fazermos comparações entre valores.`
-        return answer
+        return answerService.answerAboutRelational(telegramStudentInfo.first_name)
       case 'logico':
-        answer = `Posso dizer que... bem, esse é um pouco mais difícil de explicar eu acho, mas é utilizado quando precisamos testar duas ou mais condições no nosso código.`
-        return answer
+        return answerService.answerAboutLogical(telegramStudentInfo.first_name)
       case 'aritmetico':
-        answer = `Esse é o mais tranquilo de explicar. Com operadores aritméticos vc faz suas operações matemáticas, são bem simples e práticos.`
-        return answer
+        return answerService.answerAboutArithmetics(telegramStudentInfo.first_name)
+      case 'professor':
+        return answerService.sendAnEmailToTeacher(telegramStudentInfo.first_name, telegramStudentInfo.id)
+      case 'video':
+        return answerService.sendVideo(telegramStudentInfo.first_name, telegramStudentInfo.id)
       default:
         return answer
     }
