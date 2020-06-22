@@ -41,7 +41,7 @@ let studentController = {
       name
     }
 
-    const logs = await logController.listStudentLogs()
+    const logs = await logController.listStudentLogs(idTelegram)
     const logsList = []
     logs.map(log => logsList.push({ subject: log.subject, data: log.created_at }))
     student.logs = logsList

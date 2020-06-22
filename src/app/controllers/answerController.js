@@ -20,6 +20,9 @@ let answerController = {
         return answerService.sendAnEmailToTeacher(telegramStudentInfo.first_name, telegramStudentInfo.id)
       case 'video':
         return answerService.sendVideo(telegramStudentInfo.first_name, telegramStudentInfo.id)
+      case 'recursao':
+        answer = ['Ainda não estou treinado para responder sobre recursão, mas logo vou aprender, deixa comigo.']
+        return answer
       default:
         return answer
     }
