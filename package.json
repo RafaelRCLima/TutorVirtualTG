@@ -15,11 +15,11 @@
     "nodemailer": "^6.4.8",
     "pg": "^8.2.1",
     "pg-hstore": "^2.3.3",
-    "sequelize": "^5.21.12"
+    "sequelize": "^5.21.12",
+    "sequelize-cli": "^5.5.1"
   },
   "devDependencies": {
     "eslint": "^7.2.0",
-    "nodemon": "^2.0.2",
-    "sequelize-cli": "^5.5.1"
+    "nodemon": "^2.0.2"
   }
 }
