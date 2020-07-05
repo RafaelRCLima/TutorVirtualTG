@@ -1,25 +1,28 @@
 const answerService = require('../services/answerService')
 
 let answerController = {
-  async analizeAsk(watsonMessage, name, idTelegram) {
+  async analizeAsk(watsonMessage, telegramStudentInfo) {
     let answer = [watsonMessage]
     switch (watsonMessage) {
       case 'if':
-        return answerService.answerAboutIf(name)
+        return answerService.answerAboutIf(telegramStudentInfo.first_name)
       case 'while':
-        return answerService.answerAboutWhile(name)
+        return answerService.answerAboutWhile(telegramStudentInfo.first_name)
       case 'for':
-        return answerService.answerAboutFor(name)
+        return answerService.answerAboutFor(telegramStudentInfo.first_name)
       case 'relacional':
-        return answerService.answerAboutRelational(name)
+        return answerService.answerAboutRelational(telegramStudentInfo.first_name)
       case 'logico':
-        return answerService.answerAboutLogical(name)
+        return answerService.answerAboutLogical(telegramStudentInfo.first_name)
       case 'aritmetico':
-        return answerService.answerAboutArithmetics(name)
+        return answerService.answerAboutArithmetics(telegramStudentInfo.first_name)
       case 'professor':
-        return answerService.sendAnEmailToTeacher(name, idTelegram)
+        return answerService.sendAnEmailToTeacher(telegramStudentInfo.first_name, telegramStudentInfo.id)
       case 'video':
-        return answerService.sendVideo(name, idTelegram)
+        return answerService.sendVideo(telegramStudentInfo.first_name, telegramStudentInfo.id)
+      case 'recursao':
+        answer = ['Ainda não estou treinado para responder sobre recursão, mas logo vou aprender, deixa comigo.']
+        return answer
       default:
         return answer
     }

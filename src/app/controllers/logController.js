@@ -28,8 +28,12 @@ let logController = {
     }
   },
 
-  async listStudentLogs() {
-    const logs = await Log.findAll()
+  async listStudentLogs(studentId) {
+    const logs = await Log.findAll({
+      where: {
+        idTelegram: studentId
+      }
+    })
     return logs
   }
 }
