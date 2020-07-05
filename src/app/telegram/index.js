@@ -30,11 +30,11 @@ bot.on('message', async (msg) => {
   try {
 
     let mensagem = await message(assistant, msg.text, await student.watsonSession, assistId)
-    console.log(mensagem)
     if (!mensagem) {
       session = await watsonSession(assistant, assistId)
       student.watsonSession = await session
       await student.save()
+      console.log(student.watsonSession)
       mensagem = await message(assistant, msg.text, await student.watsonSession, assistId)
     }
 
