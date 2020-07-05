@@ -1,4 +1,5 @@
 const Student = require('../models/Student')
+const studentService = require('../services/studentService')
 const logController = require('../controllers/logController')
 
 let studentController = {
@@ -30,11 +31,7 @@ let studentController = {
   },
 
   async findStudent(req, res) {
-    const { idTelegram, name } = await Student.findOne({
-      where: {
-        idTelegram: req.params.id
-      }
-    })
+    const { idTelegram, name } = await studentService.findStudentByIdTelegram(req.params.id)
 
     const student = {
       idTelegram,

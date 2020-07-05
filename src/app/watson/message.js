@@ -11,8 +11,8 @@ let message = (assistant, msg, session, assistId) => {
       .then(async res => {
         resolve(res.result)
       })
-      .catch(err => {
-        reject(err)
+      .catch(() => {
+        reject({ message: 'error' })
       })
   })
 }
