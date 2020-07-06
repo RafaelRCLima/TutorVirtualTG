@@ -14,12 +14,11 @@ console.log('Teste')
 let session = watsonSession(assistant, assistId)
 
 bot.on('message', async (msg) => {
-
+  console.log(msg.text)
+  studentController.createStudent(msg.from.id, msg.from.first_name)
   const student = await studentService.findStudentByIdTelegram(msg.from.id)
   console.log()
   studentService.saveWatsonSession(await session, student, assistant, assistId)
-
-  studentController.createStudent(msg.from.id, msg.from.first_name)
 
   if (msg.text === '/start') {
     session = await watsonSession(assistant, assistId)
