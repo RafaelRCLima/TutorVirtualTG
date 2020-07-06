@@ -14,6 +14,7 @@ let session = watsonSession(assistant, assistId)
 bot.on('message', async (msg) => {
 
   const student = await studentService.findStudentByIdTelegram(msg.from.id)
+  console.log()
   studentService.saveWatsonSession(await session, student, assistant, assistId)
 
   if (msg.text === '/start') {
@@ -30,13 +31,14 @@ bot.on('message', async (msg) => {
   try {
 
     let mensagem = await message(assistant, msg.text, await student.watsonSession, assistId)
-    if (!mensagem) {
-      session = await watsonSession(assistant, assistId)
-      student.watsonSession = await session
-      await student.save()
-      console.log(student.watsonSession)
-      mensagem = await message(assistant, msg.text, await student.watsonSession, assistId)
-    }
+    // if (!mensagem) {
+    //   session = await watsonSession(assistant, assistId)
+    //   student.watsonSession = await session
+    //   await student.save()
+    //   console.log(student.watsonSession)
+    //   mensagem = await message(assistant, msg.text, await student.watsonSession, assistId)
+    // }
+    console.log(mensagem)
 
     logController.saveLog(mensagem.output.entities, msg.from.id)
 
