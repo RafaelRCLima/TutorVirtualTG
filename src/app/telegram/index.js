@@ -9,6 +9,8 @@ const studentService = require('../services/studentService')
 const assistant = require('../../config/watson')
 const assistId = 'adc3f697-2399-4eed-bd60-a0cecaabebb0'
 
+console.log('Teste')
+
 let session = watsonSession(assistant, assistId)
 
 bot.on('message', async (msg) => {
@@ -17,14 +19,14 @@ bot.on('message', async (msg) => {
   console.log()
   studentService.saveWatsonSession(await session, student, assistant, assistId)
 
+  studentController.createStudent(msg.from.id, msg.from.first_name)
+
   if (msg.text === '/start') {
     session = await watsonSession(assistant, assistId)
     student.watsonSession = await session
     await student.save()
     return
   }
-
-  studentController.createStudent(msg.from.id, msg.from.first_name)
 
   // return new Promise(async (resolve, reject) => {
 
