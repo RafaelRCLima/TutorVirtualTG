@@ -9,15 +9,12 @@ const studentService = require('../services/studentService')
 const assistant = require('../../config/watson')
 const assistId = 'adc3f697-2399-4eed-bd60-a0cecaabebb0'
 
-console.log('Teste')
-
 let session = watsonSession(assistant, assistId)
 
 bot.on('message', async (msg) => {
-  console.log(msg.text)
+
   studentController.createStudent(msg.from.id, msg.from.first_name)
   const student = await studentService.findStudentByIdTelegram(msg.from.id)
-  console.log()
   studentService.saveWatsonSession(await session, student, assistant, assistId)
 
   if (msg.text === '/start') {
@@ -27,19 +24,9 @@ bot.on('message', async (msg) => {
     return
   }
 
-  // return new Promise(async (resolve, reject) => {
-
   try {
 
     let mensagem = await message(assistant, msg.text, await student.watsonSession, assistId)
-    // if (!mensagem) {
-    //   session = await watsonSession(assistant, assistId)
-    //   student.watsonSession = await session
-    //   await student.save()
-    //   console.log(student.watsonSession)
-    //   mensagem = await message(assistant, msg.text, await student.watsonSession, assistId)
-    // }
-    console.log(mensagem)
 
     logController.saveLog(mensagem.output.entities, msg.from.id)
 
@@ -47,20 +34,13 @@ bot.on('message', async (msg) => {
 
     if (answers) {
       for (let i = 0; i < answers.length; i++) {
-        // resolve
         await bot.sendMessage(msg.chat.id, answers[i])
       }
     }
-    //   }
-    // }
-    // if (!answers) {
-    //   reject({ message: 'falha' })
-    // }
   } catch (err) {
-    console.log('Errroou')
+    console.log('Falha')
     return
   }
 })
-// })
 
 module.exports = bot

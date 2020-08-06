@@ -7,5 +7,4 @@ const router = new Router()
 router.get('/students', studentController.listStudent)
 router.get('/students/:id', studentController.findStudent)
 
-
 module.exports = router
